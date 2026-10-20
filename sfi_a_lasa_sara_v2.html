@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sara går till affären – Svenska med Wenche</title>
+<style>
+*{box-sizing:border-box}body{font-family:Arial,Helvetica,sans-serif;background:#f8f6f0;color:#38463c;margin:0;padding:18px}.wrap{max-width:760px;margin:auto;background:white;border-radius:18px;padding:clamp(18px,4vw,36px);box-shadow:0 2px 16px #38463c12}.tag{font-size:.9rem;color:#637960;font-weight:bold}h1{font-size:clamp(1.5rem,4vw,2.1rem)}p{line-height:1.7}.story{background:#e5e9df;padding:18px 22px;border-radius:12px;font-size:1.12rem}.question{border:1px solid #dcd4c2;border-radius:12px;margin-top:20px;padding:18px}legend{font-weight:bold;font-size:1.08rem;padding:0 5px}label{display:block;padding:10px 8px;border-radius:8px;cursor:pointer;line-height:1.4}label:hover{background:#f1f3ee}input{accent-color:#617a5d;margin-right:9px}button{background:#38463c;color:white;border:0;border-radius:9px;padding:13px 20px;font-size:1rem;cursor:pointer;margin:18px 10px 0 0}button.secondary{background:#e5e9df;color:#38463c}.feedback{margin-top:12px;font-weight:bold;min-height:1.5em}.good{color:#24653b}.bad{color:#9b462d}.summary{font-weight:bold;font-size:1.12rem;margin-top:16px}button:focus-visible,input:focus-visible{outline:3px solid #a6a187;outline-offset:3px}
+</style>
+</head>
+<body><main class="wrap"><div class="tag">SFI A · Läsa · Läsförståelse</div><h1>Sara går till affären</h1><div class="story"><p>Sara bor i Sverige. Idag går hon till affären.</p><p>Hon köper mjölk, bröd och äpplen.</p><p>Sedan går hon hem.</p></div><p><strong>Läs texten och svara på frågorna.</strong> Klicka sedan på ”Kontrollera svar”.</p>
+<div id="quiz">
+<fieldset class="question"><legend>1. Var bor Sara?</legend><label><input type="radio" name="q1" value="a">I Sverige</label><label><input type="radio" name="q1" value="b">I Norge</label><label><input type="radio" name="q1" value="c">I Danmark</label><div class="feedback" id="f1" aria-live="polite"></div></fieldset>
+<fieldset class="question"><legend>2. Vart går Sara?</legend><label><input type="radio" name="q2" value="a">Till skolan</label><label><input type="radio" name="q2" value="b">Till affären</label><label><input type="radio" name="q2" value="c">Till jobbet</label><div class="feedback" id="f2" aria-live="polite"></div></fieldset>
+<fieldset class="question"><legend>3. Vad köper Sara?</legend><label><input type="radio" name="q3" value="a">Kaffe och ris</label><label><input type="radio" name="q3" value="b">En bok</label><label><input type="radio" name="q3" value="c">Mjölk, bröd och äpplen</label><div class="feedback" id="f3" aria-live="polite"></div></fieldset>
+<fieldset class="question"><legend>4. Vad gör Sara sedan?</legend><label><input type="radio" name="q4" value="a">Hon går hem</label><label><input type="radio" name="q4" value="b">Hon åker buss</label><label><input type="radio" name="q4" value="c">Hon träffar en vän</label><div class="feedback" id="f4" aria-live="polite"></div></fieldset>
+<button id="check" type="button">Kontrollera svar</button><button id="reset" type="button" class="secondary">Försök igen</button><div class="summary" id="summary" role="status" aria-live="polite"></div>
+</div></main>
+<script>
+(function(){
+'use strict';
+var correct=['a','b','c','a'];
+var explanations=['Sara bor i Sverige.','Sara går till affären.','Sara köper mjölk, bröd och äpplen.','Sedan går Sara hem.'];
+var check=document.getElementById('check');
+var reset=document.getElementById('reset');
+check.onclick=function(){
+ var score=0;
+ for(var i=0;i<4;i++){
+  var selected=document.querySelector('input[name="q'+(i+1)+'"]:checked');
+  var feedback=document.getElementById('f'+(i+1));
+  if(!selected){feedback.textContent='Välj ett svar.';feedback.className='feedback bad';}
+  else if(selected.value===correct[i]){score++;feedback.textContent='Rätt! '+explanations[i];feedback.className='feedback good';}
+  else{feedback.textContent='Inte riktigt. Läs texten och försök igen.';feedback.className='feedback bad';}
+ }
+ document.getElementById('summary').textContent='Du har '+score+' av 4 rätt. '+(score===4?'Bra jobbat!':'Ändra dina svar och kontrollera igen.');
+};
+reset.onclick=function(){
+ var inputs=document.querySelectorAll('input[type="radio"]');
+ for(var i=0;i<inputs.length;i++){inputs[i].checked=false;}
+ for(var j=1;j<=4;j++){var feedback=document.getElementById('f'+j);feedback.textContent='';feedback.className='feedback';}
+ document.getElementById('summary').textContent='';
+};
+})();
+</script></body></html>
